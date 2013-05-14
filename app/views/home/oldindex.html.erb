@@ -1,0 +1,40 @@
+<div class="container">
+
+   <h1>Welcome to URL Butchers!</h1>
+    <p>We chop your URLS down to byte sizes!</p>
+
+
+    <%= form_for(@url) do |f| %>
+    <%= f.label :originalurl, "Original Url" %>:
+      <%= f.text_field :originalurl, :value => "http://" %>
+      <%= f.submit %>
+    <% end %>
+
+<!--     <form id="chopper" method="post" action="/urls">
+      <input type="text" name="originalurl" placeholder="Enter a valid url here" value="http://">
+      <input type="submit" value="chop it!">
+    </form> -->
+
+    <p>Browse what other URL butchers are chopping up!</p>
+    <table border="5" class="profile">
+      <tr>
+        <td>Original:</td>
+        <td>Shortened</td>
+        <td>Hits</td>
+      </tr>
+      <% unless @urls == [] %>
+      <% @urls.each do |url| %>
+      <tr>
+        <td><a href="http://<%= url.originalurl %>"><%= url.originalurl %></a></td>
+        <td><a href="/<%= url.shorturl %>">ubu.pw/<%= url.shorturl %></a></td>
+        <td><%= url.counter %></td>
+      </tr>
+      <% end %>
+    </table>
+
+      <% else %>
+      <li><%= "You have no urls. Let's create some" %></li>
+      <% end %>
+    </ol>
+  </div>
+

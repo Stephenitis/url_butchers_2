@@ -1,0 +1,8 @@
+var origin = $('<td>').append("<%= escape_javascript(link_to @url.originalurl, 'http://#{@url.originalurl}') %>")
+var shorten = $('<td>').append("<%= escape_javascript(link_to @url.shorturl, url_for(@url.shorturl)) %>")
+var counter = $('<td>').append("<%= @url.counter %>")
+
+var row = $('<tr>').append(origin).append(shorten).append(counter)
+$('table.profile').append(row)
+
+

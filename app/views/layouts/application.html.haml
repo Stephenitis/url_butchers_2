@@ -1,0 +1,27 @@
+!!!
+%html
+  %head
+    %title Ubu
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body
+    %div.nav
+      - if user_signed_in?
+        = link_to "sign out", signout_users_path, method: :delete, :data => {:confirm => "Logging out?" }
+        %p#notice
+          = flash[:notice]
+      - else
+        = form_for @user, :url => { :action => "login", :controller => "users" }  do |f|
+          - if @user.errors.any?
+            %div#error_explanation
+              %h2= pluralize(@user.errors.count, "error") + "errors prevented this from saving"
+              %ul
+                = @user.errors.full_messages.each do |msg|
+                  %li= msg
+          = f.label :email, "email"
+          = f.email_field :email
+          = f.label :password, "password"
+          = f.password_field :password
+          = f.submit :value => "login"
+    = yield

@@ -1,0 +1,33 @@
+%div.container
+  %h1 Welcome to URL Butchers
+  %p We chop urls down to byte sizes
+
+  = form_for(@url, :remote => true) do |f|
+    - if @url.errors.any?
+      %div#error_explanation
+        %h2= pluralize(@url.errors.count, "error") + "errors prevented this from saving"
+        %ul
+          = @url.errors.full_messages.each do |msg|
+            %li= msg
+
+    = f.label :originalurl, "Original Url"
+    = f.text_field :originalurl, :value => "http://"
+    = f.submit
+
+  %p Browse what other URL butchers are chopping up!
+
+%div.table_profile  
+  %table.profile
+    %tr
+      %th Original:
+      %th Shortened
+      %th Hits
+
+    - unless @urls == []
+      - @urls.each do |url|
+        %tr
+          %td= link_to url.originalurl, "http://#{url.originalurl}"
+          %td= link_to url.shorturl, url_for(url.shorturl)
+          %td= url.counter
+    - else
+      "You have no urls. Let's create some"

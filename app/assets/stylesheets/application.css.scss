@@ -10,7 +10,13 @@
  *
  *= require_self
  *= require_tree .
+ *= require flat-ui
  */
 
 
-@import 'home'
+@import 'flat-ui';
+
+
+input[type='submit'] {
+  @extend .btn;
+};
